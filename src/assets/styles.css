@@ -1,0 +1,527 @@
+/*
+ * Styles for RF YouTube Playlist Manager.
+ * Matches YouTube's design language, supports light and dark themes.
+ *
+ * All selectors are prefixed with .rfpm- to avoid collisions
+ * with YouTube's own styles.
+ */
+
+/* ─── Theme Variables ──────────────────────────────────────────── */
+
+:root {
+  --rfpm-bg: #ffffff;
+  --rfpm-bg-hover: #f2f2f2;
+  --rfpm-bg-selected: #e8f0fe;
+  --rfpm-text: #0f0f0f;
+  --rfpm-text-secondary: #606060;
+  --rfpm-border: #d9d9d9;
+  --rfpm-accent: #065fd4;
+  --rfpm-accent-hover: #0451b5;
+  --rfpm-danger: #cc0000;
+  --rfpm-danger-hover: #a80000;
+  --rfpm-toast-bg: #323232;
+  --rfpm-toast-text: #ffffff;
+  --rfpm-overlay-bg: rgba(0, 0, 0, 0.5);
+  --rfpm-dialog-bg: #ffffff;
+  --rfpm-checkbox-bg: #ffffff;
+  --rfpm-checkbox-border: #909090;
+  --rfpm-checkbox-checked: #065fd4;
+}
+
+/* Dark theme (YouTube sets html[dark] when dark mode is on) */
+html[dark] {
+  --rfpm-bg: #212121;
+  --rfpm-bg-hover: #3a3a3a;
+  --rfpm-bg-selected: #263850;
+  --rfpm-text: #f1f1f1;
+  --rfpm-text-secondary: #aaaaaa;
+  --rfpm-border: #3f3f3f;
+  --rfpm-accent: #3ea6ff;
+  --rfpm-accent-hover: #67b8ff;
+  --rfpm-danger: #ff4e45;
+  --rfpm-danger-hover: #ff6961;
+  --rfpm-toast-bg: #f1f1f1;
+  --rfpm-toast-text: #0f0f0f;
+  --rfpm-dialog-bg: #282828;
+  --rfpm-checkbox-bg: #181818;
+  --rfpm-checkbox-border: #717171;
+  --rfpm-checkbox-checked: #3ea6ff;
+}
+
+/* ─── Toolbar ──────────────────────────────────────────────────── */
+
+.rfpm-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 16px;
+  margin-bottom: 8px;
+  background: var(--rfpm-bg);
+  border: 1px solid var(--rfpm-border);
+  border-radius: 12px;
+  font-family: "Roboto", "Arial", sans-serif;
+  font-size: 14px;
+  color: var(--rfpm-text);
+  flex-wrap: wrap;
+}
+
+.rfpm-toolbar-left,
+.rfpm-toolbar-center,
+.rfpm-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.rfpm-toolbar-center {
+  flex: 1;
+  justify-content: center;
+}
+
+/* ─── Buttons ──────────────────────────────────────────────────── */
+
+.rfpm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 16px;
+  border: none;
+  border-radius: 18px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, opacity 0.2s;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+.rfpm-btn:focus-visible {
+  outline: 2px solid var(--rfpm-accent);
+  outline-offset: 2px;
+}
+
+.rfpm-btn-select-all {
+  background: var(--rfpm-bg-hover);
+  color: var(--rfpm-text);
+}
+
+.rfpm-btn-select-all:hover {
+  background: var(--rfpm-border);
+}
+
+.rfpm-btn-action {
+  background: var(--rfpm-accent);
+  color: #ffffff;
+}
+
+.rfpm-btn-action:hover {
+  background: var(--rfpm-accent-hover);
+}
+
+.rfpm-btn-danger {
+  background: var(--rfpm-danger);
+  color: #ffffff;
+}
+
+.rfpm-btn-danger:hover {
+  background: var(--rfpm-danger-hover);
+}
+
+.rfpm-btn-cancel {
+  background: var(--rfpm-bg-hover);
+  color: var(--rfpm-text);
+  margin-top: 8px;
+  width: 100%;
+}
+
+.rfpm-btn-cancel:hover {
+  background: var(--rfpm-border);
+}
+
+.rfpm-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ─── Selection Count ──────────────────────────────────────────── */
+
+.rfpm-selection-count {
+  color: var(--rfpm-text-secondary);
+  font-size: 13px;
+  min-width: 0;
+}
+
+/* ─── Checkbox ─────────────────────────────────────────────────── */
+
+/* Add left padding to renderers to make room for the checkbox */
+ytd-playlist-video-list-renderer ytd-playlist-video-renderer {
+  padding-left: 36px !important;
+}
+
+.rfpm-checkbox {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rfpm-checkbox-input {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--rfpm-checkbox-checked);
+  margin: 0;
+}
+
+/* Selected video highlight */
+ytd-playlist-video-renderer.rfpm-selected {
+  background-color: var(--rfpm-bg-selected) !important;
+  border-radius: 8px;
+}
+
+/* ─── Toast ────────────────────────────────────────────────────── */
+
+.rfpm-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--rfpm-toast-bg);
+  color: var(--rfpm-toast-text);
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-family: "Roboto", "Arial", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  z-index: 10000;
+  pointer-events: none;
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  text-align: center;
+}
+
+.rfpm-toast-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ─── Dialog / Overlay ─────────────────────────────────────────── */
+
+.rfpm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--rfpm-overlay-bg);
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rfpm-dialog {
+  background: var(--rfpm-dialog-bg);
+  border-radius: 12px;
+  padding: 24px;
+  min-width: 320px;
+  max-width: 480px;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  color: var(--rfpm-text);
+  font-family: "Roboto", "Arial", sans-serif;
+}
+
+.rfpm-dialog-title {
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.rfpm-playlist-list {
+  overflow-y: auto;
+  max-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rfpm-playlist-item {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  background: transparent;
+  border: 1px solid var(--rfpm-border);
+  border-radius: 8px;
+  color: var(--rfpm-text);
+  font-family: inherit;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.rfpm-playlist-item:hover {
+  background: var(--rfpm-bg-hover);
+}
+
+.rfpm-playlist-empty {
+  padding: 20px;
+  text-align: center;
+  color: var(--rfpm-text-secondary);
+  font-size: 13px;
+}
+
+/* ─── Create Playlist Section ─────────────────────────────────── */
+
+.rfpm-create-playlist {
+  margin-bottom: 12px;
+}
+
+.rfpm-create-playlist-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--rfpm-text);
+  margin-bottom: 8px;
+}
+
+.rfpm-create-playlist-row {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.rfpm-create-playlist-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--rfpm-border);
+  border-radius: 6px;
+  background: var(--rfpm-bg);
+  color: var(--rfpm-text);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.rfpm-create-playlist-input:focus {
+  border-color: var(--rfpm-accent);
+}
+
+.rfpm-create-playlist-select {
+  padding: 8px 12px;
+  border: 1px solid var(--rfpm-border);
+  border-radius: 6px;
+  background: var(--rfpm-bg);
+  color: var(--rfpm-text);
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+}
+
+.rfpm-create-playlist-select:focus {
+  border-color: var(--rfpm-accent);
+}
+
+.rfpm-create-playlist-btn {
+  padding: 8px 20px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.rfpm-create-playlist-error {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--rfpm-danger);
+  min-height: 16px;
+}
+
+.rfpm-picker-divider {
+  margin: 16px 0;
+  padding: 8px 0;
+  border-top: 1px solid var(--rfpm-border);
+  text-align: center;
+  font-size: 13px;
+  color: var(--rfpm-text-secondary);
+}
+
+/* ─── Sort Controls ────────────────────────────────────────────── */
+
+.rfpm-sort-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+
+.rfpm-sort-label {
+  font-size: 13px;
+  color: var(--rfpm-text-secondary);
+  white-space: nowrap;
+}
+
+.rfpm-btn-sort {
+  background: var(--rfpm-bg-hover);
+  color: var(--rfpm-text);
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+.rfpm-btn-sort:hover {
+  background: var(--rfpm-border);
+}
+
+.rfpm-btn-sort.rfpm-active {
+  background: var(--rfpm-accent);
+  color: #ffffff;
+}
+
+/* ─── Dropdown (shared by sort and other features) ───────────────── */
+
+.rfpm-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  background: var(--rfpm-dialog-bg);
+  border: 1px solid var(--rfpm-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  min-width: 220px;
+  padding: 4px 0;
+}
+
+.rfpm-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  background: transparent;
+  border: none;
+  color: var(--rfpm-text);
+  font-family: inherit;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.rfpm-dropdown-item:hover {
+  background: var(--rfpm-bg-hover);
+}
+
+.rfpm-dropdown-item-desc {
+  display: block;
+  font-size: 12px;
+  color: var(--rfpm-text-secondary);
+  margin-top: 2px;
+}
+
+/* ─── Sort Popover ─────────────────────────────────────────────── */
+
+.rfpm-sort-popover {
+  min-width: 340px;
+  padding: 12px;
+}
+
+.rfpm-sort-popover-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--rfpm-text);
+  margin-bottom: 12px;
+}
+
+.rfpm-sort-levels {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.rfpm-sort-level-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rfpm-sort-level-label {
+  font-size: 13px;
+  color: var(--rfpm-text-secondary);
+  min-width: 55px;
+  white-space: nowrap;
+}
+
+.rfpm-sort-select {
+  flex: 1;
+  padding: 5px 8px;
+  border: 1px solid var(--rfpm-border);
+  border-radius: 6px;
+  background: var(--rfpm-bg);
+  color: var(--rfpm-text);
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  outline: none;
+}
+
+.rfpm-sort-select:focus {
+  border-color: var(--rfpm-accent);
+}
+
+.rfpm-sort-dir-btn {
+  min-width: 110px;
+  text-align: center;
+  font-size: 12px;
+  padding: 5px 8px;
+}
+
+.rfpm-sort-remove-btn {
+  background: transparent;
+  color: var(--rfpm-text-secondary);
+  border: none;
+  font-size: 16px;
+  padding: 2px 6px;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 1;
+}
+
+.rfpm-sort-remove-btn:hover {
+  background: var(--rfpm-danger);
+  color: #ffffff;
+}
+
+.rfpm-sort-add-btn {
+  width: 100%;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.rfpm-sort-mode {
+  font-size: 12px;
+  color: var(--rfpm-text-secondary);
+  padding: 6px 0;
+  border-top: 1px solid var(--rfpm-border);
+  margin-bottom: 8px;
+}
+
+.rfpm-sort-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.rfpm-sort-actions .rfpm-btn {
+  flex: 1;
+  font-size: 13px;
+}

@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "RF YouTube Playlist Manager",
+  "version": "1.0.0",
+  "description": "Mass video management, remove watched videos, and sort by length in YouTube playlists.",
+  "permissions": ["identity", "activeTab"],
+  "host_permissions": [
+    "https://www.youtube.com/*",
+    "https://www.googleapis.com/*"
+  ],
+  "oauth2": {
+    "client_id": "196091819850-4g7qse96k2u5mr9uu1cdp1pueoe3i0mp.apps.googleusercontent.com",
+    "scopes": ["https://www.googleapis.com/auth/youtube"]
+  },
+  "background": {
+    "service_worker": "src/background/service-worker.ts"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["src/content/index.ts"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "public/icons/icon-16.png",
+    "48": "public/icons/icon-48.png",
+    "128": "public/icons/icon-128.png"
+  }
+}

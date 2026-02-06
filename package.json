@@ -1,0 +1,27 @@
+{
+  "name": "rf-youtube-playlist-manager",
+  "version": "1.0.0",
+  "description": "Chrome extension for managing YouTube playlists — mass select, remove watched, sort by length",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryandotfurrer/rf-youtube-playlist-manager.git"
+  },
+  "keywords": ["chrome-extension", "youtube", "playlist-manager"],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryandotfurrer/rf-youtube-playlist-manager/issues"
+  },
+  "homepage": "https://github.com/ryandotfurrer/rf-youtube-playlist-manager#readme",
+  "devDependencies": {
+    "@crxjs/vite-plugin": "^2.3.0",
+    "@types/chrome": "^0.1.36",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
+  }
+}
