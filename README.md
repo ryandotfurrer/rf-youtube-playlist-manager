@@ -1,5 +1,27 @@
 # rf-youtube-playlist-manager
 
+Mass video management, remove watched videos, and sort by length in YouTube playlists.
+
+RF YouTube Playlist Manager
+
+Take control of your YouTube playlists with powerful bulk management tools.
+
+Features:
+- Mass video selection with checkboxes
+- Move videos between playlists (with create-new-playlist option)
+- Remove videos from current playlist
+- Add videos to queue
+- Multi-level sort by duration and date published
+- Smart quota management (warns before large operations)
+
+Perfect for:
+- Cleaning up large Watch Later playlists
+- Organizing videos by topic into separate playlists
+- Finding and watching your shortest videos first
+- Managing collaborative playlists
+
+Note: This extension requires YouTube account access to manage playlists. All operations use the official YouTube Data API.
+
 ## Privacy Policy - RF YouTube Playlist Manager
 
 Last updated: February 5, 2026
